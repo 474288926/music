@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <audio ref="audio" @canplay="ready" @error="error" @ended="end" autoplay="autoplay" @timeupdate="updataTime" :src="currentSong.Url.url" ></audio>
+    <audio ref="audio" @canplay="ready" @error="error" @ended="end" autoplay="autoplay" @timeupdate="updataTime" :src="currentSong.audioUrl.url" ></audio>
   </el-affix>
 
 </template>
@@ -141,11 +141,12 @@
         this.isChange = false
       },
       changeMode() {
+        if(!this.songReady) {
+          return
+        }
         const mode = (this.mode + 1) % 3
         this.setPlayMode(mode)
-        
         let list = []
-        
         if (mode === playMode.random) {
           list = shuffle(this.sequenceList)
         } else {
@@ -153,6 +154,9 @@
         }
         this.resetCurrentIndex(list)
         this.setPlayList(list)
+        if(!this.playing){
+          this.togglePlaying()
+        }
       },
       resetCurrentIndex(list) {
         list.findIndex(item => {
@@ -181,7 +185,6 @@
         })
       },
       playing(newVal) {
-        
         this.$nextTick(() => {
           const audio = this.$refs.audio
           newVal ? audio.play() : audio.pause()

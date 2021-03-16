@@ -33,7 +33,6 @@
 
 <style scoped>
   .sub-nav{
-    height: 35px;
     box-sizing: border-box;
     background-color: #C20C0C;
     border-bottom: 1px solid #a40011;
@@ -48,7 +47,6 @@
     align-items: center;
     line-height: 35px;
     height: 35px;
-
   }
   .sub-nav-li{
      margin-right: 50px;

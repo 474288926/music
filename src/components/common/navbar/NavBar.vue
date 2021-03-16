@@ -17,7 +17,6 @@
 <style scoped>
   #nav-bar{
     display: flex;
-    width: 100%;
   }
   .left{
     flex-shrink: 1;

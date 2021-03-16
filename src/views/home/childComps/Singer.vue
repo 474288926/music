@@ -1,6 +1,6 @@
 <template>
    <singer-list>
-    <ul>
+      <ul>
         <li  v-for="(value, index) in artists" :key="index">
           <a href="" class="sc">
           <img :src="value.cover" alt="">
@@ -37,21 +37,20 @@
   .sc{
     margin-bottom: 10px;
     display: flex;
-    width: 100%;
     background-color: #fdfdfd;
     text-decoration: none;
   }
   .sc img {
-    width: 36%;
-    height: 36%;
+    width: 58px;
+    height: 58px;
   }
   .sc-item{
     padding-left: 10px;
     padding-top: 8px;
     line-height: 2;
-    width: 100%;
     border: #dedede 1px solid;
     border-left: none;
+    overflow: hidden;
   }
   .sc-item:hover{
     background-color: #f4f4f4;
@@ -62,7 +61,6 @@
   }
   .sc-item p{
     color: #afafaf;
-    width: 120px;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;

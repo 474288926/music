@@ -50,7 +50,6 @@
 >>>.conter{
     display: flex ;
     align-items: center ;
-    flex: 1;
   }
   .space-item{
     margin-left: 20px;
@@ -70,5 +69,10 @@
     border: none; 
     margin-top: 15px; 
     width: 100%;
+  }
+  @media only screen and (max-width: 770px) {
+     >>>.conter{
+       display: none;
+     }
   }
 </style>

@@ -46,7 +46,6 @@
     padding-left: 10px;
     padding-top: 8px;
     line-height: 2;
-    width: 100%;
   }
 
   .sc-item a{
@@ -60,5 +59,14 @@
     white-space: nowrap;
     width: 150px;
     font-family:Verdana;
+  }
+  @media only screen and (max-width: 960px) {
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+    }
+    li{
+      margin-right: auto;
+    }
   }
 </style>

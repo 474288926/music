@@ -58,23 +58,15 @@
     padding: 3% 3%;
     border: #cfcfcf 0.5px solid;
   }
-  .el-carousel{
-    width:100%;
-  }
-  .el-carousel__item{
-    width: 100%;
-    height: 100%;
-  }
   .el-carousel__item ul{
-    height: 100%; 
-    width: 100%; 
     display: flex;
   }
   .el-carousel__item ul li{
-    flex: 1;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 40px;
+    justify-content: space-around;
+    margin-left: 8px;
+    margin-right: auto;
   }
   .el-carousel__item ul li p{
     width: 118px;

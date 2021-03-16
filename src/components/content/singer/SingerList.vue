@@ -53,4 +53,9 @@
   .st h1{
    font-weight: bold;
   }
+  @media only screen and (max-width: 960px) {
+    .singer{
+      border-left: 1px #d0d0d0 solid;
+    }
+  }
 </style>

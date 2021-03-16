@@ -52,25 +52,25 @@
         })
       },
       getList(value = 19723756){
-          this.$nextTick(() => {
+
             getListDetail(value).then(res => {
               this.list = new listDetail(res.playlist) 
               this.list.tracks.forEach(value => {
                 let id = value.id
                 getSongUrl(id).then(res => {
-                  let data = res.data
-                  data.forEach(v => {
-                    value.Url = v
-                  })
+                    res.data.forEach(v => {
+                      value.audioUrl = v.url
+                    })
                 })
                 getLyric(id).then(res => {
-                  value.lyric = res.lrc
+                  if(res.lrc) {
+                    value.lyric = res.lrc
+                  }
                 })
-            
               })
               // console.log(this.list)
             })
-          })
+
         },
         
         activelist(id){

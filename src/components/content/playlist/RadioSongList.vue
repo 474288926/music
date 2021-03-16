@@ -73,10 +73,6 @@
         }
       }
     },
-    created() {
-      // console.log(this.list, '123')
-      // console.log(this.list.songs[0].mainSong.hMusic.playTime)
-    },
     methods:{
       mouseover(index){
         // console.log(index)

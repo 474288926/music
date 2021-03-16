@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <goods-item v-for="(item, index) in playlisthot" :key="index" :item='item' :onoff="onoff"></goods-item>
+    <goods-item class="good-item" v-for="(item, index) in playlisthot" :key="index" :item='item' :onoff="onoff"></goods-item>
   </div>
 </template>
 
@@ -29,4 +29,9 @@
     justify-content: space-around;
     flex-wrap: wrap;
   }
+@media only screen and (max-width: 1200px) {
+  .good-item{
+    width: 30%;
+  }
+}
 </style>

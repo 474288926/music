@@ -59,7 +59,7 @@
 
 <style scoped>
   .fr{
-    flex: 1;
+    width: 25%;
     border: 1px #d5d5d5 solid;
     border-top: none;    
     border-left: none;

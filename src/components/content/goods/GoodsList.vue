@@ -101,7 +101,6 @@
     padding: 20px 0;
   }
   .top-img{
-    flex: 1;
     box-shadow: 0 3px 5px #2B2B2B;
   }
   .top-img img{
@@ -128,5 +127,18 @@
   }
   .mb{
    margin-top: 10px;
+  }
+  @media only screen and (max-width: 960px) {
+    .top{
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .top-item{
+      padding: 10px 0;
+    }
+    .goods-list ul li span{
+      margin-left: 0;
+    }
   }
 </style>

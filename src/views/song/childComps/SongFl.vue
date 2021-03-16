@@ -14,7 +14,7 @@
       <div style="margin-top: 20px; overflow: hidden;" :style="height">
         <p style="margin-top: 10px;" v-for="(value, index) in songdetail.lrc" :key="index">{{value.text}}</p>
       </div>
-      <div style="margin-top: 10px;" @Click="aclick"><a>展开</a><i class="el-icon-arrow-down"></i></div>
+      <div style="margin-top: 10px;"  @Click="aclick"><a>展开</a><i class="el-icon-arrow-down"></i></div>
     </div>
   </div>
 </template>

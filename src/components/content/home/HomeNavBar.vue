@@ -1,39 +1,43 @@
 <template>
-  <nav-bar class="nav-bar">
-   <template #left>
-      <h1 class="logo"><a href="">网易云音乐</a></h1>
-    </template>
-
-    <template #conter>
-     <el-menu active-text-color="#FFFFFF" text-color="#cccccc" background-color="#2b2b2b" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item v-for="(menu, index) in menulist" :key="index" :index="index.toString()">{{menu}}</el-menu-item>
-      </el-menu>
-    </template>
-
-    <template #right>
-      <el-autocomplete
-            prefix-icon="el-icon-search"
-            class="inline-input"
-            v-model="state"
-            size="small"
-            :fetch-suggestions="querySearch"
-            placeholder="音乐/视频/电台/用户"
-            :trigger-on-focus="false"
-            @select="handleSelect"
-          ></el-autocomplete>
-      <el-button size="small" round>创造者中心</el-button>   
-      <el-link type="info" :underline="false">登录</el-link> 
-    </template>
-  </nav-bar>
+  <div class="home-nav-bar" ref="homenav">
+    <div class="box">
+      <div class="left">
+        <h1 class="logo"><a href="">网易云音乐</a></h1>
+      </div>
+       
+       <div class="conter">
+         <div class="btn" @click="activeBtn"><i class="el-icon-s-grid"></i></div>
+       </div>
+       
+       <transition name="slide-fade">
+         <div class="right" v-show='isbtn'>
+           <ul >
+             <li :class="{active: activeIndex == index}" @click="isActive(index)" v-for="(menu, index) in menulist" :key="index">{{menu}}</li>
+           </ul>
+           <div class="serch-box">
+            <el-autocomplete
+                  prefix-icon="el-icon-search"
+                  class="inline-input"
+                  v-model="state"
+                  size="small"
+                  :fetch-suggestions="querySearch"
+                  placeholder="音乐/视频/电台/用户"
+                  :trigger-on-focus="false"
+                  @select="handleSelect"
+                ></el-autocomplete>
+            <el-button size="small" round>创造者中心</el-button>   
+            <el-link type="info" :underline="false">登录</el-link> 
+           </div>         
+         </div>
+       </transition>
+    </div>         
+  </div>
+      
 </template>
 
 <script>
-  import NavBar from '../../common/navbar/NavBar.vue'
   export default {
     name: 'HomeNavBar',
-    components: {
-      NavBar
-    },
     props: {
       menulist: {
         type: Array,
@@ -45,12 +49,13 @@
     data() {
       return {
         activeIndex: '0',
-        state: ''
+        isbtn: true,
+        state: '',
+        screenWidth: document.documentElement.clientWidth
       }
     },
     methods: {
       handleSelect(key, keyPath) {
-        console.log(key, keyPath);
       },
       querySearch(queryString, cb) {
         var restaurants = this.restaurants;
@@ -115,19 +120,38 @@
           { "value": "南拳妈妈龙虾盖浇饭", "address": "普陀区金沙江路1699号鑫乐惠美食广场A13" }
         ];
       },
-      // handleSelect(item) {
-      //   console.log(item);
-      // }
+      isActive(index) {
+        this.activeIndex = index
+      },
+      activeBtn() {
+        this.isbtn = !this.isbtn
+      }
     },
     mounted() {
       this.restaurants = this.loadAll();
+      const that = this
+      window.onresize= () => {
+          return (() => {
+              window.screenWidth = document.body.clientWidth;
+              that.screenWidth = window.screenWidth;
+          })();
+      }
+    },
+    watch:{
+      screenWidth(newVal, oldVal) {
+        if(newVal < 960) {
+          this.isbtn = false
+        }else {
+          this.isbtn = true
+        }
+        console.log(newVal, oldVal)
+      }
     }
   }
 </script>
 
-<style scoped>
-.nav-bar{
-    width: 100%;
+<style  scoped>
+.home-nav-bar{
     box-sizing: border-box;
     background: #2b2b2b;
     border-bottom: 1px solid #000000;
@@ -135,35 +159,48 @@
     justify-content: center;
     align-items: center;
   }
+  .box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    overflow: hidden;
+  }
  .logo{
-    width: 170px;
-    height: 69px;
-    float: right;
     background-position: 0 0;
     background: url(../../../assets/img/frame/topbar.png) no-repeat;
   }
   .logo a{
     display: block;
+    width: 170px;
+    height: 69px;
     text-indent: -9999px;
-  }  
- .el-menu{
-    display: flex;
-    height: 70px !important;
-    border: none !important;
   }
-  .el-menu-item{
-    height: 70px !important;
-    line-height: 70px !important;
-  }
-  
-  >>> .el-menu-item:hover{
-      outline: 0 !important;
-      background-color: #000000 !important;
-  }
-  >>>.el-menu-item.is-active {  
-    color: #fff !important;  
-    background: #000000 !important;  
-  }
+.right{
+  display: flex;
+}
+.right ul{
+  display: flex;
+  margin-right: 40px;
+}
+.right ul li{
+  line-height: 70px;
+  height: 70px;
+  white-space: nowrap;
+  padding: 0 10px;
+  color: #b5b5b5;
+  font-size: .8rem;
+}
+.right ul li:hover{
+  color: white;
+  background-color: #000000;
+  border-bottom: 2px white solid;
+}
+.active{
+  color: white;
+  background-color: #000000;
+  border-bottom: 2px white solid;
+}
   >>>.el-autocomplete{
     line-height: 70px;
   }
@@ -186,6 +223,64 @@
     margin-left: 20px;
     font-size: 8px;
   }
-
+  .btn{
+    display: none;
+  }
+@media only screen and (max-width: 960px) {
+  .box{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .box .left {
+    margin-right: auto;
+  }
+  .conter{
+    display: flex;
+  }
+  .right{
+    width: 100%;
+    flex-flow: column;
+    overflow: hidden;
+  }
+  .right ul{
+    padding: 0 auto;
+    display: block;
+    width: 100%;
+    margin-right: auto;
+  }
+  .right ul li{
+    line-height: 40px;
+    height: 40px;
+  }
+  .serch-box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .btn{
+    font-size: 1.5rem;
+    margin-left: 10px;
+    display: block;
+    color: white;
+    padding: 1px 3px;
+    border: 1px solid #c7c7c7;
+  }
+  .slide-fade-enter-active{
+    animation: slide-fade-in 1s;
+  }
+  .slide-fade-leave-active{
+    animation: slide-fade-in 1s reverse;
+  }
+  @keyframes slide-fade-in {
+    0% {
+      height: 0;
+      opacity: 0;
+    }
+    100% {
+      height: 310px;
+      opacity: 1;
+    }
+  }
+}
   
 </style>

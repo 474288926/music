@@ -11,6 +11,8 @@ import $bus from './common/event.js'
 
 import store from './store'
 
+// import less from 'less'
+
 //创建Vue应用实例
 const app = createApp(App)
 //挂载事务总线为全局属性

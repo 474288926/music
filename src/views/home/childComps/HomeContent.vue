@@ -1,25 +1,26 @@
 <template>
-  <div class="home-content">
-    <div class="fl">
-      <show-goods :title="title" tag='热门标签'>
-        <goods :playlisthot='playlisthot' />
-      </show-goods>
-      <show-goods tag="新碟上架">
-        <goods-swiper :topalbum='topalbum' ></goods-swiper>
-      </show-goods>
-      <show-goods tag="榜单">
-        <goods-list :toplist="toplist" v-if="flag > 27">
-          <good-list-item></good-list-item>
-        </goods-list>
-      </show-goods>
-    </div>
-    <div class="fr">
-      <log-in />
-      <singer :artists="artists" />
-      <hot-anchor :djtop="djtop" />
-    </div>  
-  </div>
-
+ <div class="home-content">
+   <div class="row">
+     <div class="fl col-lg-9 col-md-8 col-sm-12 col-sx-12">
+         <show-goods :title="title" tag='热门标签'>
+           <goods :playlisthot='playlisthot' />
+         </show-goods>
+         <show-goods tag="新碟上架">
+           <goods-swiper :topalbum='topalbum' ></goods-swiper>
+         </show-goods>
+         <show-goods tag="榜单">
+           <goods-list :toplist="toplist">
+             <good-list-item></good-list-item>
+           </goods-list>
+         </show-goods>
+       </div>
+       <div class="fr col-lg-3 col-md-4 col-sm-12 col-sx-12">
+         <log-in />
+         <singer :artists="artists" />
+         <hot-anchor :djtop="djtop" />
+       </div>  
+     </div>
+   </div>
 </template>
 
 <script>
@@ -55,7 +56,6 @@
         toplist: [],
         artists: [],
         djtop: [],
-        flag: 0
       }
     },
     created() {
@@ -86,40 +86,32 @@
       },
       getTopList(){
         this.$nextTick(() => {
-              getTopList().then(res => {
-                res.list.forEach(value => {
-                  var ids = []
-                  getListDetail(value.id).then(res => {
-                    // console.log(res)
-                    res.privileges.forEach(id => {
-                      ids.push(id.id)
-                    })
-                    getSongDetail(ids.slice(0, 10)).then(res => {
-                      value.songs = res.songs
-                      // console.log(res)
-                      this.flag++
-                    })
-                  })
-                  
+          return new Promise((resolve) => {
+            getTopList().then(res => {
+              resolve(res)
+            })
+          }).then(value => {          
+            value.list.splice(0, 3).forEach(v => {
+              let ids = []
+              getListDetail(v.id).then(d => {
+                d.privileges.forEach(c => {
+                  ids.push(c.id)
                 })
-                res.list.slice(0, 3).forEach(v => {
+                getSongDetail(ids.slice(0, 10)).then(f => {
+                  v.songs = f.songs
                   this.toplist.push(v)
-                  
                 })
-                
-                console.log(this.toplist)
-              })
-              
+              }) 
+            })    
+          })
         })
       },
       
       getArtistList() {
         getArtistList().then(res => {
-          // console.log(res)
           res.artists.forEach(value => {
             this.getArtistDetail(value.id)
           })
-          // console.log(this.artists)
         })
       },
       getArtistDetail(value){
@@ -139,7 +131,7 @@
       
       getSongUrl(id){
         getSongUrl(id).then(res => {
-          console.log(res)
+          // console.log(res)
         })
       }
     }
@@ -149,20 +141,25 @@
 <style scoped>
   .home-content{
     display: flex;
+    align-items: center;
     justify-content: center;
     width: 60%;
   }
   .fl{
-    width: 79%;
     padding: 20px 20px;
     border: 1px #d5d5d5 solid;
     border-top: none;
   }
   .fr{
-    width: 21%;
     border: 1px #d5d5d5 solid;
     border-top: none;    
     border-left: none;
+  }
+  
+  @media only screen and (max-width: 960px) {
+    .home-content{
+      flex-flow: row wrap;
+    }
   }
   
 </style>
