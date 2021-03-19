@@ -83,3 +83,12 @@ export function getSongUrl(id){
     }
   })
 }
+
+export function getLyric(id) {
+  return request({
+    url: '/api/lyric',
+    params: {
+      id
+    }
+  })
+}

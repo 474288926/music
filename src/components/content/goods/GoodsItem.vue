@@ -4,7 +4,7 @@
             <img :src="item.picUrl" class="image">
           </a>
           <div class="nb">
-           <a class="el-icon-video-play" title="播放" ></a>
+           <a class="el-icon-video-play" title="播放" @click="selectItem(item)"></a>
             <span class="fr">{{item.playCount}}</span>
             <span class="el-icon-headset"></span>
           </div> 
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+  
   export default {
     name: 'GoodsItem',
     props:{
@@ -40,6 +41,9 @@
             id: this.item.id
           }
         })
+      },
+      selectItem(value) {
+        this.$mybus.emit('selectItem', value)
       }
     }
   }

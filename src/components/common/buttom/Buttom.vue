@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <audio ref="audio" @canplay="ready" @error="error" @ended="end" autoplay="autoplay" @timeupdate="updataTime" :src="currentSong.audioUrl.url" ></audio>
+    <audio ref="audio" @canplay="ready" @error="error" @ended="end" autoplay="autoplay" @timeupdate="updataTime" :src="currentSong.audioUrl" ></audio>
   </el-affix>
 
 </template>
@@ -201,14 +201,14 @@
     display: flex;
     justify-content: center;
     
-    
+    width: 100%;
   }
   .player{
   }
   .normal-player{
     padding: 10px 15px;
     display: flex;
-    width: 30%;
+    width: 500px;
     border-radius: 10px 10px;
     background-color: rgba(56, 56, 56, 0.5);
   }
@@ -226,7 +226,7 @@
     width: 70%;
   }
   .center img{
-    width: 19%;
+    width: 25%;
   }
   .disable{
     background-color: red;

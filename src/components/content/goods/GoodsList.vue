@@ -40,7 +40,7 @@
       toplist:{
         deep: true,  // 深度监听
         handler(newVal,oldVal) {
-          console.log(newVal,oldVal)
+          // console.log(newVal,oldVal)
         }
       }
     }

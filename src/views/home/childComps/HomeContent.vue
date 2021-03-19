@@ -33,7 +33,9 @@
   import HotAnchor from './HotAnchor.vue';
   import GoodListItem from '../../../components/content/goods/GoodListItem.vue'
   
-  import { getPlayListHot, getTopAlbum, getTopList, getListDetail, getSongDetail, getArtistList, getArtistDetail, getDjTop, getSongUrl } from '../../../network/home.js'
+  import { mapActions } from 'vuex'
+  
+  import { getPlayListHot, getTopAlbum, getTopList, getListDetail, getSongDetail, getArtistList, getArtistDetail, getDjTop, getSongUrl, getLyric } from '../../../network/home.js'
     
   export default {
     name: 'HomeComtent',
@@ -56,6 +58,7 @@
         toplist: [],
         artists: [],
         djtop: [],
+        list: []
       }
     },
     created() {
@@ -64,12 +67,39 @@
       this.getTopList()
       this.getArtistList()
       this.getDjTop()
-      // this.promise1()
+      
+      this.$mybus.on('selectItem',value =>{
+        getListDetail(value.id).then(res => {
+          this.list = res.playlist.tracks
+          this.list.forEach(va => {
+            let id = va.id
+            getSongUrl(id).then(res => {
+                res.data.forEach(v => {
+                  va.audioUrl = v.url
+                })
+            })
+            getLyric(id).then(res => {
+              if(res.lrc) {
+                va.lyric = res.lrc
+              }
+            })
+            console.log(this.list)
+            this.selectPlay({
+              list: this.list,
+              index: 0
+            })
+          })
+        })
+      })
     },
     computed:{
       
     },
     methods:{
+      ...mapActions([
+        'selectPlay'
+      ]),
+        
       getPlayListHot() {
         getPlayListHot(this.limit).then(res => {
           // console.log(res)

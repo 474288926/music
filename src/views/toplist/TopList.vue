@@ -68,7 +68,6 @@
                   }
                 })
               })
-              // console.log(this.list)
             })
 
         },
