@@ -9,8 +9,7 @@
            <goods-swiper :topalbum='topalbum' ></goods-swiper>
          </show-goods>
          <show-goods tag="榜单">
-           <goods-list :toplist="toplist">
-             <good-list-item></good-list-item>
+           <goods-list :toplist="toplist" @select="select" @oneplay="oneplay">
            </goods-list>
          </show-goods>
        </div>
@@ -31,9 +30,8 @@
   import LogIn from './LogIn.vue'
   import Singer from './Singer.vue'
   import HotAnchor from './HotAnchor.vue';
-  import GoodListItem from '../../../components/content/goods/GoodListItem.vue'
   
-  import { mapActions } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
   
   import { getPlayListHot, getTopAlbum, getTopList, getListDetail, getSongDetail, getArtistList, getArtistDetail, getDjTop, getSongUrl, getLyric } from '../../../network/home.js'
     
@@ -46,8 +44,7 @@
       GoodsList,
       LogIn,
       Singer,
-      HotAnchor,
-      GoodListItem
+      HotAnchor
     },
     data() {
       return {
@@ -72,18 +69,7 @@
         getListDetail(value.id).then(res => {
           this.list = res.playlist.tracks
           this.list.forEach(va => {
-            let id = va.id
-            getSongUrl(id).then(res => {
-                res.data.forEach(v => {
-                  va.audioUrl = v.url
-                })
-            })
-            getLyric(id).then(res => {
-              if(res.lrc) {
-                va.lyric = res.lrc
-              }
-            })
-            console.log(this.list)
+            this.getSongList(va)
             this.selectPlay({
               list: this.list,
               index: 0
@@ -99,6 +85,10 @@
       ...mapActions([
         'selectPlay'
       ]),
+      ...mapMutations({
+        setAddList: 'SET_ADD_LIST',
+        setCurrentIndex: 'SET_CURRENT_INDEX'
+      }),
         
       getPlayListHot() {
         getPlayListHot(this.limit).then(res => {
@@ -129,6 +119,9 @@
                 })
                 getSongDetail(ids.slice(0, 10)).then(f => {
                   v.songs = f.songs
+                  v.songs.forEach(va => {
+                    this.getSongList(va)
+                  })
                   this.toplist.push(v)
                 })
               }) 
@@ -159,10 +152,46 @@
         })
       },
       
-      getSongUrl(id){
+      getSongList(va){
+        let id = va.id
         getSongUrl(id).then(res => {
-          // console.log(res)
+            res.data.forEach(v => {
+              va.audioUrl = v.url
+            })
         })
+        getLyric(id).then(res => {
+          if(res.lrc) {
+            va.lyric = res.lrc
+          }
+        })
+      },
+      
+      select(value) {
+        this.list = value.songs
+        this.list.forEach(va => {
+          this.getSongList(va)
+          this.selectPlay({
+            list: this.list,
+            index: 0
+          })
+        })
+      },
+      
+      oneplay(item, index) {
+        console.log(item)
+        let arr = this.list.filter(value => {
+          return value.id != item.id
+        })
+        if (arr.length < this.list.length) {
+          this.list.forEach(va => {
+            this.getSongList(va)
+          })
+        }else {
+          this.setAddList(item)
+        } 
+        
+        
+        
       }
     }
   }

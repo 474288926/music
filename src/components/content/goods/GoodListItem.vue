@@ -1,9 +1,9 @@
 <template>
   <div class="list">
-    <a v-show="num >= 1" href="" class="el-icon-video-play"></a>
-    <a v-show="num >= 2" href="" class="el-icon-plus"></a>
-    <a v-show="num >= 3" href="" class="el-icon-folder-add"></a>
-    <a v-show="num >= 4" href="" class="el-icon-download"></a>
+    <a v-show="num >= 1"  class="el-icon-video-play" @click="play"></a>
+    <a v-show="num >= 2"  class="el-icon-plus"></a>
+    <a v-show="num >= 3"  class="el-icon-folder-add"></a>
+    <a v-show="num >= 4"  class="el-icon-download"></a>
   </div>
 </template>
 
@@ -14,6 +14,11 @@
       num:{
         type: String,
         default: '3'
+      }
+    },
+    methods:{
+      play() {
+        this.$emit('oneplay')
       }
     }
   }

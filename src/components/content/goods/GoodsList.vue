@@ -5,13 +5,13 @@
         <div class="top-img"><a href=""><img :src="value.coverImgUrl" alt=""></a></div>
         <div class="top-item">
           <div class="mt"><a href="">{{value.name}}</a></div>
-          <div class="mb"><a href="" class="el-icon-video-play"></a><a href="" class="el-icon-folder-add"></a></div>
+          <div class="mb"><a  class="el-icon-video-play" @click="select(value)"></a><a href="" class="el-icon-folder-add"></a></div>
         </div>
       </div>
-      <li v-for="(item, index) in value.songs" :key="index">
+      <li v-for="(item, index) in value.songs.slice(0, 10)" :key="index">
         <span>{{index+1}}</span>
         <a href="" :style="active">{{item.name}}</a>
-        <div class="list" ><slot></slot></div>
+        <div class="list" ><good-list-item @oneplay="oneplay(item, index)"></good-list-item></div>
       </li>
       <li ><a href="" style="text-align: right; margin-right: 10px; font-weight: 200px;">查看全部 ></a></li>
     </ul>
@@ -19,8 +19,13 @@
 </template>
 
 <script>
+  import GoodListItem from './GoodListItem.vue'
+  
   export default{
     name: 'GoodsList',
+    components:{
+      GoodListItem
+    },
     data() {
       return {
           current: 0,
@@ -30,10 +35,19 @@
     },
     props: {
       toplist: {
-        type: Object,
+        type: Array,
         default(){
-          return {}
+          return []
         }
+      }
+    },
+    methods:{
+      select(value) {
+        // console.log('123')
+        this.$emit('select', value)
+      },
+      oneplay(item, index) {
+        this.$emit('oneplay', item, index)
       }
     },
     watch:{

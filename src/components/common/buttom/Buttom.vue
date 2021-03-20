@@ -183,6 +183,7 @@
         this.$nextTick(() => {
           this.$refs.audio.play()
         })
+        // console.log(newVal, oldVal)
       },
       playing(newVal) {
         this.$nextTick(() => {
