@@ -123,6 +123,7 @@
                     this.getSongList(va)
                   })
                   this.toplist.push(v)
+                  this.setCurrentIndex(5)
                 })
               }) 
             })    
@@ -178,16 +179,25 @@
       },
       
       oneplay(item, index) {
-        console.log(item)
         let arr = this.list.filter(value => {
           return value.id != item.id
         })
         if (arr.length < this.list.length) {
           this.list.forEach(va => {
             this.getSongList(va)
+            this.selectPlay({
+              list: this.list,
+              index: this.list.findIndex(value => {
+                return value.id == item.id
+              })
+            })
           })
         }else {
-          this.setAddList(item)
+          this.list.push(item)
+          this.selectPlay({
+            list: this.list,
+            index: this.list.length - 1
+          })
         } 
         
         
