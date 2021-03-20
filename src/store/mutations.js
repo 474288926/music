@@ -18,8 +18,5 @@ export default{
   },
   [types.SET_PLAY_MODE](state, value) {
     state.mode = value
-  },
-  [types.SET_ADD_LIST](state, value) {
-    state.playList.push(value)
   }
 }

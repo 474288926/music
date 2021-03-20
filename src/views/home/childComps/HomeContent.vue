@@ -31,7 +31,7 @@
   import Singer from './Singer.vue'
   import HotAnchor from './HotAnchor.vue';
   
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
   
   import { getPlayListHot, getTopAlbum, getTopList, getListDetail, getSongDetail, getArtistList, getArtistDetail, getDjTop, getSongUrl, getLyric } from '../../../network/home.js'
     
@@ -85,10 +85,6 @@
       ...mapActions([
         'selectPlay'
       ]),
-      ...mapMutations({
-        setAddList: 'SET_ADD_LIST',
-        setCurrentIndex: 'SET_CURRENT_INDEX'
-      }),
         
       getPlayListHot() {
         getPlayListHot(this.limit).then(res => {
