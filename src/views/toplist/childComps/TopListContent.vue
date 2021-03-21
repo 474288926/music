@@ -69,6 +69,7 @@
   }
   .header{
     display: flex;
+    align-items: center;
   }
   .header img{
     background-color: #000000;
@@ -86,17 +87,5 @@
   }
   .header-fr p{
     margin-top: 10px;
-  }
-  
-  
-
-/* .hd img{
-    height: 40px;
-    width: 40px;
-    background-color: #000000;
-  } */
-  
-  .footer{
-    
   }
 </style>

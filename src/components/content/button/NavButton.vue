@@ -18,20 +18,19 @@
 <style>
   .fr-footer{
     margin-top: 20px;
-    height: 28%;
-    display: flex;
+    height: 35px;
+    display: flex;  
+    /* justify-content: space-between; */
   }
   .button{
     border: 1px #CCCCCC solid;
     padding: 2px 5px;
     background-image: linear-gradient(#f9f9f9, #ebebeb);
-    margin-right: 5px;
     font-size: 14px;
+    margin-right: 5px;
     border-radius: 5px 5px;
-    margin-left: 5px;
   }
   .button-one{
-    width: 16%;
     border-radius: 5px 0px 0px 5px;
     border: none;
     padding: 3px 5px;
@@ -42,10 +41,9 @@
     color: white;
   }
   .button-two{
-    width: 8%;
+    width: 6%;
+    margin-right: 10px;
     border-radius: 0px 5px 5px 0px; 
-    margin-left: -6px;
-    margin-right: 5px;
     border: none;
     background-image: linear-gradient(#4598e1, #175b9a);
     border-left: #fafafa 1px solid;
@@ -58,5 +56,20 @@
   }
   .button:hover{
     background-image: linear-gradient(#ffffff, #f9f9f9);
+  }
+  @media only screen and (max-width: 960px) {
+    .fr-footer{
+      flex-wrap: wrap;
+      height: 80px;
+    }
+    .button{
+      margin-top: 5px;
+    }
+    .button-one{
+      margin-top: 5px;
+    }
+    .button-two{
+      margin-top: 5px;
+    }
   }
 </style>

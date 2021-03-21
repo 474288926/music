@@ -74,31 +74,34 @@
   }
   .hover{
     background-color: #f4f4f4;
-  }
-  .content {
-    
-  }
-  
+  } 
   .list {
     color: #000000;
     text-decoration: none;
     display: flex;
     padding: 10px 20px;
   }
-/*  .list:hover{
-    background-color: #f4f4f4;
-  } */
   .list img {
-    width: 20%;
+    width: 2.375rem;
   }
-  .list-item {
+ .list-item {
     margin-left: 10px;
     line-height: 2em;
   }
   .list-item p:nth-child(even){
     color: #B1B1B1;
   }
-  ul{
+  .content{
     margin-bottom: 20px;
+  }
+  @media only screen and (max-width: 960px) {
+    .content{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    ul li{
+      width: 12.5rem;
+    }
   }
 </style>

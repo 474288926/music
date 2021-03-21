@@ -1,12 +1,14 @@
 <template>
   <div id="top-list">
     <div class='top-list'>
-      <div class="fl">
-        <top-fl :list="toplist1" title='云音乐特色榜'  @abc = 'activelist' />
-        <top-fl :list="toplist2" title='全球媒体榜'  @abc = 'activelist'/>
-      </div>
-      <div class="fr">
-        <top-list-content :list="list" />
+      <div class="row">
+        <div class="fl col-lg-2 col-md-12 col-sm-12 col-sx-12">
+          <top-fl :list="toplist1" title='云音乐特色榜'  @abc = 'activelist' />
+          <top-fl :list="toplist2" title='全球媒体榜'  @abc = 'activelist'/>
+        </div>
+        <div class="fr col-lg-10 col-md-12 col-sm-12 col-sx-12">
+          <top-list-content :list="list" />
+        </div>
       </div>
     </div>
   </div>
@@ -52,29 +54,31 @@
         })
       },
       getList(value = 19723756){
-
+        return new Promise((resolve) => {
             getListDetail(value).then(res => {
-              this.list = new listDetail(res.playlist) 
-              this.list.tracks.forEach(value => {
-                let id = value.id
-                getSongUrl(id).then(res => {
-                    res.data.forEach(v => {
-                      value.audioUrl = v.url
-                    })
-                })
-                getLyric(id).then(res => {
-                  if(res.lrc) {
-                    value.lyric = res.lrc
-                  }
-                })
+              let list = new listDetail(res.playlist) 
+              resolve(list)
+            })
+          }).then(res => {
+            let list = res
+            list.tracks.forEach(value => {
+              let id = value.id
+              getSongUrl(id).then(res => {
+                  res.data.forEach(v => {
+                    value.audioUrl = v.url
+                  })
+              })
+              getLyric(id).then(res => {
+                  value.lyric = res.lrc
               })
             })
-
+            this.list = list
+          })
         },
         
-        activelist(id){
+      activelist(id){
           this.getList(id)
-        }
+      }
         
     }
   }
@@ -89,18 +93,21 @@
   .top-list{
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 60%;
     border-bottom: #d5d5d5 1px solid;
   }
   .fl{
     padding-top: 40px;
     border-left: #d5d5d5 1px solid;
     border-right: #d5d5d5 1px solid;
-    width: 25%;
   }
   .fr{
-    flex: 1;
     border-right: #d5d5d5 1px solid;
     padding: 3% 3%;
+  }
+  @media only screen and (max-width: 960px) {
+    .fr{
+      border-left: #d5d5d5 1px solid;
+    }
   }
 </style>

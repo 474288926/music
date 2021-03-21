@@ -187,7 +187,7 @@
     align-items: center;
   }
   .hd .el-image{
-    width: 10%;
+    width: 2.8125rem;
     margin-right: 8px;
   }
   >>>.list{
