@@ -219,6 +219,7 @@
     border: 1px #d5d5d5 solid;
     border-top: none;    
     border-left: none;
+    overflow: hidden;
   }
   
   @media only screen and (max-width: 960px) {

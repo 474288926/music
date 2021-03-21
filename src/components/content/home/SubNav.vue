@@ -1,17 +1,25 @@
 <template>
   <div class="sub-nav">
     <ul class="sub-nav-ul">
-      <li class="sub-nav-li" v-for="(value, index) in subnavli " :key="index" @click="onClick(index)"><em class="sub-em" :class="{active: isActive === index}">{{value.name}}</em></li>
+      <li class="sub-nav-li" v-for="(value, index) in subnavli " :key="index" @click="onClick(index)">
+        <sub-nav-item :path="value.path">
+          {{value.name}}
+        </sub-nav-item>
+      </li>
     </ul>
   </div>
 </template>
 
-<script scoped>
+<script>
+  import SubNavItem from './SubNavItem.vue'
+  
   export default{
     name: 'SubNav',
+    components:{
+      SubNavItem
+    },
     data() {
       return {
-        isActive: 0
       }
     },
     props: {
@@ -50,22 +58,5 @@
   }
   .sub-nav-li{
      margin-right: 50px;
-  }
-  .sub-em{
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 20px;
-    display: block;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    margin: 0 auto;
-    color: #fff;
-  }
-  .sub-em:hover{
-    background-color: #9b0909;
-  }
-  .active{
-    background-color: #9b0909;
   }
 </style>

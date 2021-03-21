@@ -193,11 +193,13 @@
 }
 .right ul li:hover{
   color: white;
+  box-sizing: border-box;
   background-color: #000000;
   border-bottom: 2px white solid;
 }
 .active{
   color: white;
+  box-sizing: border-box;
   background-color: #000000;
   border-bottom: 2px white solid;
 }

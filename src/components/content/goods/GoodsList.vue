@@ -10,7 +10,7 @@
       </div>
       <li v-for="(item, index) in value.songs.slice(0, 10)" :key="index">
         <span>{{index+1}}</span>
-        <a href="" :style="active">{{item.name}}</a>
+        <a  :style="active" @click="clickname(index, value.songs)">{{item.name}}</a>
         <div class="list" ><good-list-item @oneplay="oneplay(item, index)"></good-list-item></div>
       </li>
       <li ><a href="" style="text-align: right; margin-right: 10px; font-weight: 200px;">查看全部 ></a></li>
@@ -48,7 +48,15 @@
       },
       oneplay(item, index) {
         this.$emit('oneplay', item, index)
-      }
+      },
+      clickname(index, value){
+        this.$router.push({
+          path:'/song',
+          query:{
+            id: value[index].id
+          }
+        })
+      },
     },
     watch:{
       toplist:{
