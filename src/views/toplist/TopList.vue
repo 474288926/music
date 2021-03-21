@@ -33,8 +33,9 @@
       }
     },
     mounted() {
+      
       this.getTopList()
-      this.getList()
+      this.getList(this.$route.query.id)
     },
     created() {
       

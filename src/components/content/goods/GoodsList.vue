@@ -13,7 +13,7 @@
         <a  :style="active" @click="clickname(index, value.songs)">{{item.name}}</a>
         <div class="list" ><good-list-item @oneplay="oneplay(item, index)"></good-list-item></div>
       </li>
-      <li ><a href="" style="text-align: right; margin-right: 10px; font-weight: 200px;">查看全部 ></a></li>
+      <li ><a style="text-align: right; margin-right: 10px; font-weight: 200px;" @click="allClick(value.id)">查看全部 ></a></li>
     </ul>
   </div>
 </template>
@@ -43,7 +43,6 @@
     },
     methods:{
       select(value) {
-        // console.log('123')
         this.$emit('select', value)
       },
       oneplay(item, index) {
@@ -57,6 +56,14 @@
           }
         })
       },
+      allClick(value) {
+        this.$router.push({
+          path: '/toplist',
+          query:{
+            id: value
+          }
+        })
+      }
     },
     watch:{
       toplist:{

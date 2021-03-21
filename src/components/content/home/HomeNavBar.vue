@@ -161,9 +161,9 @@
   }
   .box{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 60%;
+    width: 55%;
     overflow: hidden;
   }
  .logo{
@@ -181,7 +181,7 @@
 }
 .right ul{
   display: flex;
-  margin-right: 40px;
+  margin-right: 100px;
 }
 .right ul li{
   line-height: 70px;
